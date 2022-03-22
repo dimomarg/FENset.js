@@ -18,7 +18,7 @@ const isGap = function(input){
     return false;
 }
 
-let fenSet = {
+var fenSet = {
     symbols: {
         "K":"Kk",
         "Q":"Qq",
@@ -35,7 +35,7 @@ let fenSet = {
         empty:"zx"
     },
     
-    convert: function(fenString){
+    fenToDiagram: function(fenString){
         let row = 0;
         let square = 0;
         let output = "";
@@ -66,3 +66,11 @@ let fenSet = {
     }
 }
 
+window.addEventListener('DOMContentLoaded', () => {
+    var fenDivs = document.getElementsByClassName("fen");
+
+    for (var i = 0; i < fenDivs.length; i++){
+        console.log("entered for loop");
+        fenDivs[i].innerText = fenSet.fenToDiagram(fenDivs[i].innerText);
+    }
+})
