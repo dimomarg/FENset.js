@@ -70,7 +70,16 @@ window.addEventListener('DOMContentLoaded', () => {
     var fenDivs = document.getElementsByClassName("fen");
 
     for (var i = 0; i < fenDivs.length; i++){
-        console.log("entered for loop");
+        
         fenDivs[i].innerText = fenSet.fenToDiagram(fenDivs[i].innerText);
+        
+        if (fenDivs[i].className.includes("flipped")){
+            let temp = fenDivs[i].innerText;
+            temp = temp.split("");
+            temp = temp.reverse();
+            fenDivs[i].innerText = temp.join("");
+        }
     }
+
+
 })
