@@ -19,7 +19,7 @@ const isGap = function(input){
 }
 
 var fenSet = {
-    symbols: {
+    symbolMap: {
         "K":"Kk",
         "Q":"Qq",
         "B":"Bb",
@@ -35,22 +35,36 @@ var fenSet = {
         empty:"zx"
     },
     
-    fenToDiagram: function(fenString){
-        let row = 0;
+    fenToDiagram: function(fenString, flip, darkMode){
+        let row = 0; //row is used to determine square colour
+        
+        if (darkMode){
+            ++row;
+        }
+        
         let square = 0;
         let output = "";
         let currSquare = "";
         let i = 0;
+        
         while(square<64){
             currSquare = fenString[i];
             if (isPiece(currSquare)){
-                output += this.symbols[currSquare][(square+row)%2];
+                if (darkMode){
+                    if (currSquare<="Z"){ //checks if uppercase assuming currSquare is an ASCII letter
+                        currSquare = currSquare.toLowerCase();
+                    }
+                    else{
+                        currSquare = currSquare.toUpperCase();
+                    }
+                }
+                output += this.symbolMap[currSquare][(square+row)%2];
                 ++square;
                 ++i;
             }
             else if (isGap(currSquare)){
                 while (currSquare > 0){
-                    output += this.symbols.empty[(square+row)%2];
+                    output += this.symbolMap.empty[(square+row)%2];
                     ++square;
                     --currSquare;
                 }
@@ -62,6 +76,12 @@ var fenSet = {
                 ++row;
             }
         }
+        
+        if (flip){
+            output = output.split("");
+            output = output.reverse();
+            output = output.join("");
+        }
         return(output);
     }
 }
@@ -70,15 +90,10 @@ window.addEventListener('DOMContentLoaded', () => {
     var fenDivs = document.getElementsByClassName("fen");
 
     for (var i = 0; i < fenDivs.length; i++){
+        let darkMode = fenDivs[i].className.includes("darkmode")
+        let flipped = fenDivs[i].className.includes("flipped")
         
-        fenDivs[i].innerText = fenSet.fenToDiagram(fenDivs[i].innerText);
-        
-        if (fenDivs[i].className.includes("flipped")){
-            let temp = fenDivs[i].innerText;
-            temp = temp.split("");
-            temp = temp.reverse();
-            fenDivs[i].innerText = temp.join("");
-        }
+        fenDivs[i].innerText = fenSet.fenToDiagram(fenDivs[i].innerText, flipped, darkMode);
     }
 
 

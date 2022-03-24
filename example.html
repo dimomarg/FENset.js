@@ -6,11 +6,17 @@
     <script src=fenSet.js></script>    
     <style>
         .fen{
-            font-family: "OpenChessFont";
-            line-height: 1em;
-            font-size: 20pt;
+            font-family: "OpenChessFont"; /*font-family and line-height are essential*/
+            line-height: 1em; 
+            font-size: 24pt;
             break-inside: avoid;
             page-break-inside: avoid;
+            width: fit-content;
+        }
+        .darkmode{
+            background-color: black;
+            color: white;
+
         }
     </style>
 </head>
@@ -27,6 +33,11 @@
     <div class="fen flipped">
         rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
     </div>
+    <p>For white characters on black backgrounds, use the "darkmode" class</p>
+    <div class="fen darkmode">
+        rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+    </div>
+    <p>If your chess font uses different letters for each glyph, change fenSet.symbolMap accrordingly.</p>
     <p>fenSet.js also works with <a href = "https://vivliostyle.org">Vivliostyle</a>.</p>
 </body>
 </html>
