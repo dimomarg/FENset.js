@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <script src=fenSet.js></script>    
+    <style>
+        .fen{
+            font-family: "OpenChessFont";
+            line-height: 1em;
+            font-size: 20pt;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>fenSet.js example document</h1>
+    <h3>Make sure you have <a href="https://github.com/joshwalters/open-chess-font/">OpenChessFont.otf</a> installed!</h2>
+    <p>Using fenSet.js, FEN strings are converted to diagrams for use with chess symbol fonts on page load.</p>
+    <p>Simply put your positions in divs with class "fen" and use CSS to style them.</p>
+    <div class="fen">
+        rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+    </div>
+    <p>To make a diagram from black's perspective, also put "flipped" in the div's class.</p>
+    <div class="fen flipped">
+        rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2
+    </div>
+    <p>fenSet.js also works with <a href = "https://vivliostyle.org">Vivliostyle</a>.</p>
+</body>
+</html>
