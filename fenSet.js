@@ -1,17 +1,11 @@
 const isPiece = function(input){
-    input = input.toUpperCase();
-    if (input === "K" ||
-        input === "Q" ||
-        input === "B" ||
-        input === "N" ||
-        input === "R" ||
-        input === "P"){
-            return true;
-        }
-    return false;
+    if (typeof fenSet.symbolMap[input] === 'undefined'){ //bit dodgy, but works
+        return false;
+    }
+    else return true;
 }
 
-const isGap = function(input){
+const isEmpty = function(input){
     if (input >"0" && input <"9"){
         return true;
     }
@@ -60,28 +54,45 @@ var fenSet = {
                 }
                 output += this.symbolMap[currSquare][(square+row)%2];
                 ++square;
-                ++i;
             }
-            else if (isGap(currSquare)){
+            
+            else if (isEmpty(currSquare)){
                 while (currSquare > 0){
                     output += this.symbolMap.empty[(square+row)%2];
                     ++square;
                     --currSquare;
                 }
-                ++i;
             }
+            
             else if (currSquare === "/"){
                 output += "\n";
-                ++i;
                 ++row;
+                if (square%8 != 0){ //if row is the wrong size, the FEN string is invalid
+                    console.log("invalid FEN string!");
+                    return("");
+                }
+            
             }
+            
+            else{ //if unexpected character, the FEN string is invalid
+                console.log("invalid FEN string!");
+                return("");
+            }
+            
+            ++i;
         }
         
         if (flip){
-            output = output.split("");
+            output = output.split(""); //string reversal
             output = output.reverse();
             output = output.join("");
         }
+        
+        if (fenString[i]!=" "){ //if  after 64 squares, there's still things to parse, the FEN string is invalid
+            console.log("invalid FEN string!");
+            return("");
+        }
+
         return(output);
     }
 }
@@ -90,8 +101,8 @@ window.addEventListener('DOMContentLoaded', () => {
     var fenDivs = document.getElementsByClassName("fen");
 
     for (var i = 0; i < fenDivs.length; i++){
-        let darkMode = fenDivs[i].className.includes("darkmode")
-        let flipped = fenDivs[i].className.includes("flipped")
+        let darkMode = fenDivs[i].className.includes("darkmode");
+        let flipped = fenDivs[i].className.includes("flipped");
         
         fenDivs[i].innerText = fenSet.fenToDiagram(fenDivs[i].innerText, flipped, darkMode);
     }
