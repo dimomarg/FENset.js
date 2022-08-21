@@ -12,7 +12,7 @@ const isEmpty = function(input){
     return false;
 }
 
-var fenSet = {
+var fenSet = { //reassign this if using a different font.
     symbolMap: {
         "K":"Kk",
         "Q":"Qq",
